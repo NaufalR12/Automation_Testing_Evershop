@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-03-08T19:23:53.471Z",
+    "end": "2026-03-08T19:24:01.111Z",
+    "duration": 7640,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "04120ded-4af9-41f6-bd99-c7a9f2726bf4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\productPage.cy.js",
+      "file": "cypress\\e2e\\productPage.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "464986b9-e093-407e-a502-1d929714a552",
+          "title": "TC03 - Product Page Evershop",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TC03014 - User menggunakan fitur pencarian dengan field kosong",
+              "fullTitle": "TC03 - Product Page Evershop TC03014 - User menggunakan fitur pencarian dengan field kosong",
+              "timedOut": null,
+              "duration": 4748,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Buka halaman home\nproductPage.visitHome();\nproductPage.verifyHomeUrl();\n// 2. Klik icon kaca pembesar di navbar\nproductPage.clickSearchIcon();\n// 3. Tekan enter tanpa mengetik kata kunci apa pun\nproductPage.submitSearch();\n// Expected: \ncy.wait(1000);\nproductPage.verifyHomeUrl();",
+              "err": {},
+              "uuid": "8bba36f8-1746-4bb4-b248-5242a8e3a267",
+              "parentUUID": "464986b9-e093-407e-a502-1d929714a552",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8bba36f8-1746-4bb4-b248-5242a8e3a267"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4748,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

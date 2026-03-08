@@ -7,6 +7,13 @@ module.exports = defineConfig({
   chromeWebSecurity: false,
 
   e2e: {
+    reporter: 'mochawesome',
+    reporterOptions: {
+      reportDir: 'cypress/results',
+      overwrite: false,
+      html: true,
+      json: true,
+    },
     setupNodeEvents(on, config) {
       //config untuk allure report
       allureWriter(on, config);

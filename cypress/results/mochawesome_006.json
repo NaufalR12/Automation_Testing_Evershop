@@ -1,0 +1,228 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 6,
+    "passes": 4,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-03-08T19:24:05.872Z",
+    "end": "2026-03-08T19:24:55.969Z",
+    "duration": 50097,
+    "testsRegistered": 6,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4a66203c-49b0-4d77-9d89-119d47df47e3",
+      "title": "",
+      "fullFile": "cypress\\e2e\\registerPage.cy.js",
+      "file": "cypress\\e2e\\registerPage.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b8c33c52-2342-45cb-a54f-83f5daed07da",
+          "title": "Page Object Model - Register Page",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+              "title": "TC02 - Login",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "TC01001 - User membuat akun dengan data valid",
+                  "fullTitle": "Page Object Model - Register Page TC02 - Login TC01001 - User membuat akun dengan data valid",
+                  "timedOut": null,
+                  "duration": 4326,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// Generate random data setiap kali test berjalan\ncy.generateRandomUser().then(userData => {\n  const {\n    full_name,\n    email,\n    password\n  } = userData;\n  registerPage.register(full_name, email, password);\n  registerPage.verifyRegisterSuccess();\n});",
+                  "err": {},
+                  "uuid": "2cbf3971-d3f7-46b4-bfe2-9f7b66e5a668",
+                  "parentUUID": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC01002 - User membuat akun dengan email yang sudah terdaftar",
+                  "fullTitle": "Page Object Model - Register Page TC02 - Login TC01002 - User membuat akun dengan email yang sudah terdaftar",
+                  "timedOut": null,
+                  "duration": 26185,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// LANGKAH 1: Register user pertama kali dengan email random\ncy.generateRandomUser().then(firstUser => {\n  const {\n    full_name,\n    email,\n    password\n  } = firstUser;\n  // Register user pertama kali (harus berhasil)\n  registerPage.register(full_name, email, password);\n  cy.wait(2000);\n  registerPage.verifyRegisterSuccess();\n  // LANGKAH 2: Logout dan kembali ke halaman register\n  cy.clearCookies();\n  cy.clearLocalStorage();\n  registerPage.visit();\n  registerPage.navigateToCreateAccount();\n  // LANGKAH 3: Coba register dengan NAMA, PASSWORD SAMA, email lowercase\n  const emailLowercase = email.toLowerCase();\n  registerPage.register(full_name, emailLowercase, password);\n  // Expected: Muncul pesan error\n  cy.wait(1000);\n  registerPage.verifyEmailAlreadyUsedError();\n  // LANGKAH 4: Kembali ke halaman register lagi\n  registerPage.visit();\n  registerPage.navigateToCreateAccount();\n  // LANGKAH 5: Coba register dengan NAMA, PASSWORD SAMA, email UPPERCASE\n  const emailUppercase = email.toUpperCase();\n  registerPage.register(full_name, emailUppercase, password);\n  // Expected: Muncul pesan error\n  cy.wait(1000); // Tunggu response\n  registerPage.verifyEmailAlreadyUsedError();\n});",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 10000ms: Expected to find content: '/email.*is.*already.*used/i' but never did.",
+                    "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find content: '/email.*is.*already.*used/i' but never did.\n    at RegisterPage.verifyEmailAlreadyUsedError (webpack:///./cypress/support/POM/registerPage.js:141:65)\n    at Context.eval (webpack:///./cypress/e2e/registerPage.cy.js:69:21)\n    at getRet (https://demo.evershop.io/__cypress/runner/cypress_runner.js:122806:20)\n    at tryCatcher (https://demo.evershop.io/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://demo.evershop.io/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://demo.evershop.io/__cypress/runner/cypress_runner.js:122817:66)\n    at Context.then (https://demo.evershop.io/__cypress/runner/cypress_runner.js:123068:21)\n    at wrapped (https://demo.evershop.io/__cypress/runner/cypress_runner.js:146326:19)",
+                    "diff": null
+                  },
+                  "uuid": "31870913-ff71-4368-8587-3ca87ed4c494",
+                  "parentUUID": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC01003 - User membuat akun dengan data yang tidak valid",
+                  "fullTitle": "Page Object Model - Register Page TC02 - Login TC01003 - User membuat akun dengan data yang tidak valid",
+                  "timedOut": null,
+                  "duration": 7986,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// Generate random invalid data\ncy.generateInvalidUser().then(invalidData => {\n  const {\n    full_name,\n    email,\n    password\n  } = invalidData;\n  registerPage.fillFullName(full_name);\n  registerPage.fillEmail(email);\n  registerPage.fillPassword(password);\n  registerPage.register(full_name, email, password);\n  cy.contains(\"Name must only contain alphabetic characters\").should(\"be.visible\");\n  cy.contains(\"Please enter a valid email address\").should(\"be.visible\");\n  cy.contains(\"Password must be at least 6 characters long\").should(\"be.visible\");\n});\n//register dengan email yang mengandung angka dan simbol selain @ serta tanpa @\nconst {\n  emailWithNumbersAndSymbols\n} = registerData.invalidData;\nregisterPage.fillEmail(emailWithNumbersAndSymbols);\nregisterPage.clickSignUp();\ncy.wait(500);\ncy.contains(\"Please enter a valid email address\").should(\"be.visible\");\n//register dengan password yang terlalu panjang\nconst {\n  longPassword\n} = registerData.invalidData;\nregisterPage.fillPassword(longPassword);\nregisterPage.clickSignUp();\ncy.wait(500);\ncy.contains(\"Password is too long (maximum 30 characters)\").should(\"be.visible\");",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Name must only contain alphabetic characters' but never did.",
+                    "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Name must only contain alphabetic characters' but never did.\n    at Context.eval (webpack:///./cypress/e2e/registerPage.cy.js:84:68)\n    at getRet (https://demo.evershop.io/__cypress/runner/cypress_runner.js:122806:20)\n    at tryCatcher (https://demo.evershop.io/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://demo.evershop.io/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://demo.evershop.io/__cypress/runner/cypress_runner.js:122817:66)\n    at Context.then (https://demo.evershop.io/__cypress/runner/cypress_runner.js:123068:21)\n    at wrapped (https://demo.evershop.io/__cypress/runner/cypress_runner.js:146326:19)",
+                    "diff": null
+                  },
+                  "uuid": "65d8fa19-da33-4411-949e-ba744f6a1a85",
+                  "parentUUID": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC01004 - User tidak mengisi data, semua field create account kosong",
+                  "fullTitle": "Page Object Model - Register Page TC02 - Login TC01004 - User tidak mengisi data, semua field create account kosong",
+                  "timedOut": null,
+                  "duration": 1762,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "registerPage.clickSignUp();\nregisterPage.verifyFullNameRequiredError();\nregisterPage.verifyEmailRequiredError();\nregisterPage.verifyPasswordRequiredError();",
+                  "err": {},
+                  "uuid": "0edb61f9-16d7-4f8c-b76f-9f500a601976",
+                  "parentUUID": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC01005 - Fitur Show Password",
+                  "fullTitle": "Page Object Model - Register Page TC02 - Login TC01005 - Fitur Show Password",
+                  "timedOut": null,
+                  "duration": 3411,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "// Generate random data untuk test show password\ncy.generateRandomUser().then(userData => {\n  const {\n    full_name,\n    email,\n    password\n  } = userData;\n  registerPage.fillFullName(full_name);\n  registerPage.fillEmail(email);\n  registerPage.fillPassword(password);\n  registerPage.verifyPasswordIsHidden();\n  registerPage.clickShowPassword();\n  registerPage.verifyPasswordIsVisible();\n});",
+                  "err": {},
+                  "uuid": "266d3296-7cda-46d2-8859-d2625c1dd9c0",
+                  "parentUUID": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC01006 - User klik tulisan login disamping already have an account",
+                  "fullTitle": "Page Object Model - Register Page TC02 - Login TC01006 - User klik tulisan login disamping already have an account",
+                  "timedOut": null,
+                  "duration": 2194,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "registerPage.clickLoginLink();\nregisterPage.verifyNavigateToLoginPage();",
+                  "err": {},
+                  "uuid": "d833f373-5851-4653-af82-6b0b179f8b69",
+                  "parentUUID": "f1ec64c5-869d-437f-890a-767d1136bbfe",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "2cbf3971-d3f7-46b4-bfe2-9f7b66e5a668",
+                "0edb61f9-16d7-4f8c-b76f-9f500a601976",
+                "266d3296-7cda-46d2-8859-d2625c1dd9c0",
+                "d833f373-5851-4653-af82-6b0b179f8b69"
+              ],
+              "failures": [
+                "31870913-ff71-4368-8587-3ca87ed4c494",
+                "65d8fa19-da33-4411-949e-ba744f6a1a85"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 45864,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

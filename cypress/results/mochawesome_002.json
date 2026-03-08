@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-03-08T19:19:21.544Z",
+    "end": "2026-03-08T19:21:04.542Z",
+    "duration": 102998,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "34ca52bd-12b3-465e-8db9-223a86763b61",
+      "title": "",
+      "fullFile": "cypress\\e2e\\checkoutPageWithLogin.cy.js",
+      "file": "cypress\\e2e\\checkoutPageWithLogin.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "62a98aeb-84ac-4e22-b96d-5701afce1fd0",
+          "title": "TC04 - Checkout dengan Login",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TC04005 - Checkout dengan mengisi semua field mandatory dengan teks panjang dan tidak valid (256 karakter)",
+              "fullTitle": "TC04 - Checkout dengan Login TC04005 - Checkout dengan mengisi semua field mandatory dengan teks panjang dan tidak valid (256 karakter)",
+              "timedOut": null,
+              "duration": 96827,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const {\n  invalidLongTextShippingAddress,\n  invalidLongTextBillingAddress,\n  product,\n  expectedMessages\n} = checkoutData;\n// 1. Buka halaman checkout dengan produk di cart\ncheckoutPageWithLogin.addProductToCart(product.quantity.single, product.name, product.color);\ncheckoutPageWithLogin.verifyOnCheckoutPage();\n// 2. Isi semua field mandatory dengan 256 karakter\ncheckoutPageWithLogin.fillShippingAddress(invalidLongTextShippingAddress);\ncheckoutPageWithLogin.selectShippingMethod(checkoutData.shippingMethod.standard);\ncy.wait(1000);\n// 3. Pilih billing address: use a different billing address\ncheckoutPageWithLogin.selectDifferentBillingAddress();\n// 4. Isi semua field mandatory dengan 256 karakter\ncheckoutPageWithLogin.fillBillingAddress(invalidLongTextBillingAddress);\n// 5. Pilih COD\ncheckoutPageWithLogin.selectPaymentMethodCOD();\ncy.wait(1000);\n// 6. Klik place order\ncheckoutPageWithLogin.clickPlaceOrder();\n// Expected: Muncul pesan error untuk telephone dan postcode\ncheckoutPageWithLogin.verifyInvalidFormatError(expectedMessages.telephoneInvalidFormat);\ncheckoutPageWithLogin.verifyInvalidFormatError(expectedMessages.postcodeInvalidFormat);\n// Expected: Checkout gagal\ncheckoutPageWithLogin.verifyCheckoutFailed();",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Telephone can only contain numbers' but never did.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find content: 'Telephone can only contain numbers' but never did.\n    at CheckoutPage.verifyInvalidFormatError (webpack:///./cypress/support/POM/checkoutPageWithLogin.js:491:25)\n    at Context.eval (webpack:///./cypress/e2e/checkoutPageWithLogin.cy.js:153:26)",
+                "diff": null
+              },
+              "uuid": "26b0b10b-7667-41d6-a310-33a2b5535f0c",
+              "parentUUID": "62a98aeb-84ac-4e22-b96d-5701afce1fd0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "26b0b10b-7667-41d6-a310-33a2b5535f0c"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 96827,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
