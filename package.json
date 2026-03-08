@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "cypress": "^15.11.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.3.0",
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "allure-commandline": "^2.37.0",
+    "cypress-iframe": "^1.0.1",
+    "cypress-real-events": "^1.15.0"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "validRegister": {
+    "full_name": "Naufal Rafid",
+    "email": "naufal.rafid@example.com",
+    "password": "SecurePass123!"
+  },
+  "existingEmail": {
+    "full_name": "Rafid Smith",
+    "email": "existing.user@example.com",
+    "password": "ValidPass456!"
+  },
+  "existingEmailUppercase": {
+    "full_name": "Rafid Smith",
+    "email": "EXISTING.USER@EXAMPLE.COM",
+    "password": "ValidPass456!"
+  },
+  "invalidData": {
+    "full_name": "Rafid123!@#",
+    "email": "invalidemail.com",
+    "password": "abc",
+    "emailWithNumbersAndSymbols": "test123#user$456.com",
+    "longPassword": "n8&Kz#2pL9v@mX5jQ!wR4bT7yU1iO0pA3sD6fG9hH2jK5lL8zX1cV4bN7mMqW3eR6tY9uI0oP@aS#dF%gH&jK*lZ(xV)cB_nM+qW1eR4tY7uI0oP!aG2hJ5kL8zX1cV4bN7mQ3wE6rT9yU0iO@pA#sD%fG&hJ*kL(zX)cV_bN+mQ1wE4rT7yU0iO!pA2sD5fG8hJ1kL4zX7cV0bN3mQ6wE9rT2yU5iO8pA1sD4fG7hJ0kL3zX6cV9bN2m123456"
+  },
+  "emptyFields": {
+    "full_name": "",
+    "email": "",
+    "password": ""
+  },
+  "showPasswordTest": {
+    "full_name": "Test User",
+    "email": "testuser@example.com",
+    "password": "MySecretPassword123"
+  }
+}

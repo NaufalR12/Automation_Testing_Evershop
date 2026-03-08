@@ -1,0 +1,28 @@
+{
+  "validLogin": {
+    "email": "demo@evershop.io",
+    "emailUppercase": "DEMO@EVERSHOP.IO",
+    "password": "123456"
+  },
+  "invalidLogin": {
+    "unregisteredEmail": "notregistered@example.com",
+    "wrongPassword": "wrongpass123",
+    "emailWithoutAt": "invalidemail.com",
+    "emailWithNumbersAndSymbols": "test123#user$456.com",
+    "emptyEmail": "",
+    "emptyPassword": "",
+    "longPassword" : "n8&Kz#2pL9v@mX5jQ!wR4bT7yU1iO0pA3sD6fG9hH2jK5lL8zX1cV4bN7mMqW3eR6tY9uI0oP@aS#dF%gH&jK*lZ(xV)cB_nM+qW1eR4tY7uI0oP!aG2hJ5kL8zX1cV4bN7mQ3wE6rT9yU0iO@pA#sD%fG&hJ*kL(zX)cV_bN+mQ1wE4rT7yU0iO!pA2sD5fG8hJ1kL4zX7cV0bN3mQ6wE9rT2yU5iO8pA1sD4fG7hJ0kL3zX6cV9bN2m123456"
+  },
+  "resetPassword": {
+    "validEmail": "demo@evershop.io",
+    "unregisteredEmail": "notfound@example.com",
+    "invalidEmail": "emailwithoutat.com"
+  },
+  "validationMessages": {
+    "emailRequired": "This field can not be empty",
+    "invalidEmailOrPassword": "Invalid email or password",
+    "emailInvalidFormat": "Invalid email",
+    "accountNotFound": "Customer with email",
+    "resetLinkSent": "If there is an account associated with"
+  }
+}

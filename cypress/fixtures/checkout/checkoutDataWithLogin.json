@@ -1,0 +1,96 @@
+{
+  "loginUser": {
+    "email": "demo@test.com",
+    "password": "123456"
+  },
+  "validShippingAddress": {
+    "fullName": "John Doe",
+    "telephone": "08123456789",
+    "address1": "Jl. Sudirman No. 123",
+    "city": "Jakarta",
+    "province": "Alabama",
+    "postcode": "12345",
+    "country": "United States"
+  },
+  "validBillingAddress": {
+    "fullName": "Jane Smith",
+    "telephone": "08198765432",
+    "address1": "Jl. Thamrin No. 456",
+    "city": "Bandung",
+    "province": "Alabama",
+    "postcode": "40123",
+    "country": "United States"
+  },
+  "coupon": {
+    "valid": "Borongramadhan33",
+    "invalid": "INVALIDCOUPON123"
+  },
+  "product": {
+    "name": "Stainless Steel Thermos - Yellow",
+    "link": "stainless-steel-thermos-yellow",
+    "color": "Yellow",
+    "quantity": {
+      "single": "1",
+      "multiple": "2"
+    }
+  },
+  "productQuantity": {
+    "single": "1",
+    "multiple": "2"
+  },
+  "shippingMethod": {
+    "standard": "Basic",
+    "express": "Express"
+  },
+  "paymentMethod": {
+    "cod": "cod",
+    "stripe": "stripe"
+  },
+  "emptyShippingAddress": {
+    "fullName": "",
+    "telephone": "",
+    "address1": "",
+    "city": "",
+    "province": "",
+    "postcode": ""
+  },
+  "emptyBillingAddress": {
+    "fullName": "",
+    "telephone": "",
+    "address1": "",
+    "city": "",
+    "province": "",
+    "postcode": ""
+  },
+  "invalidLongTextShippingAddress": {
+    "fullName": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "telephone": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "address1": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "city": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "province": "Alabama",
+    "postcode": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "country": "United States"
+  },
+  "invalidLongTextBillingAddress": {
+    "fullName": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "telephone": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "address1": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "city": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "province": "Alabama",
+    "postcode": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:',.<>?/~`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$",
+    "country": "United States"
+  },
+  "expectedMessages": {
+    "thankYou": "Thank you",
+    "orderSuccess": "Your order has been placed",
+    "couponApplied": "Coupon applied",
+    "invalidCoupon": "Invalid coupon",
+    "cardIncomplete": "Your card number is incomplete",
+    "expiryIncomplete": "Your card's expiration date is incomplete",
+    "paymentFailed": "payment failed",
+    "fieldRequired": "is required",
+    "selectPaymentMethod": "SELECT A PAYMENT METHOD",
+    "telephoneInvalidFormat": "Telephone can only contain numbers",
+    "postcodeInvalidFormat": "Postcode can only contain numbers"
+  }
+}

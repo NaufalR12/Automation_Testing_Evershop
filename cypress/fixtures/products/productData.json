@@ -1,0 +1,60 @@
+{
+  "navigation": {
+    "homeUrl": "https://demo.evershop.io/",
+    "accessoriesUrl": "https://demo.evershop.io/accessories",
+    "modernCeramicVaseGreen": "https://demo.evershop.io/accessories/modern-ceramic-vase-green"
+  },
+  "sortOptions": {
+    "sortBy": {
+      "default": "",
+      "price": "price",
+      "name": "name"
+    },
+    "sortOrder": {
+      "asc": "ASC",
+      "desc": "DESC"
+    }
+  },
+  "filter": {
+    "priceRange": {
+      "min": 15,
+      "max": 25
+    },
+    "priceRangeMaxOnly": {
+      "min": 12,
+      "max": 20
+    },
+    "priceRangeMinOnly": {
+      "min": 19,
+      "max": 35
+    },
+    "priceRangeMinEqualsMax": {
+      "min": 35,
+      "max": 35
+    },
+    "priceRangeMaxEqualsMin": {
+      "min": 12,
+      "max": 12
+    },
+    "colors": ["Black", "White", "Yellow", "Green"],
+    "colorIds": {
+      "White": "1",
+      "Black": "2",
+      "Yellow": "3",
+      "Green": "9"
+    }
+  },
+  "search": {
+    "validKeyword": "Stainless Steel Thermos",
+    "expectedResults": 3
+  },
+  "errorMessages": {
+    "variantRequired": "Please select variant options",
+    "stockInsufficient": "We do not have enough stock"
+  },
+  "productDetail": {
+    "validQuantity": 2,
+    "invalidQuantity": -1,
+    "overstockQuantity": 99999
+  }
+}
