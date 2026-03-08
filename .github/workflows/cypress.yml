@@ -7,15 +7,15 @@ on:
     branches: [main, master]
 
 permissions:
-  contents: read
+  contents: write  
   pages: write
   id-token: write
 
 jobs:
   # ──────────────────────────────────────────────
-  # Job 1: Install dependencies & cache
+  # Job 1: Install & Run Cypress (Digabung agar lebih efisien)
   # ──────────────────────────────────────────────
-  install:
+  cypress-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,65 +30,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Cache Cypress binary
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-  # ──────────────────────────────────────────────
-  # Job 2: Run Cypress tests
-  # ──────────────────────────────────────────────
-  cypress-run:
-    runs-on: ubuntu-latest
-    needs: install
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: "npm"
-
-      - name: Restore Cypress cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        continue-on-error: true 
         with:
           browser: chrome
-          install: true
+          install: false 
         env:
           allure: true
-        continue-on-error: true
 
+      
       - name: Upload test results
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() 
         with:
           name: cypress-results
           path: cypress/results
-          if-no-files-found: ignore
-
-      - name: Upload screenshots on failure
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
-
-      - name: Upload videos
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
           if-no-files-found: ignore
 
       - name: Upload Allure results
@@ -99,52 +56,21 @@ jobs:
           path: allure-results
           if-no-files-found: ignore
 
-  # ──────────────────────────────────────────────
-  # Job 3: Generate Mochawesome report
-  # ──────────────────────────────────────────────
-  generate-report:
-    runs-on: ubuntu-latest
-    needs: cypress-run
-    if: always()
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Download test results
-        uses: actions/download-artifact@v4
-        with:
-          name: cypress-results
-          path: cypress/results
-
-      - name: Merge Mochawesome reports
-        run: npm run merge:reports
-
-      - name: Generate Mochawesome HTML report
-        run: npm run generate:html
-
-      - name: Upload Mochawesome report
+      - name: Upload screenshots
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: mochawesome-report
-          path: cypress/reports
+          name: cypress-screenshots
+          path: cypress/screenshots
           if-no-files-found: ignore
 
   # ──────────────────────────────────────────────
-  # Job 4: Generate Allure Report & Deploy to GitHub Pages
+  # Job 2: Generate & Deploy Report
   # ──────────────────────────────────────────────
-  generate-allure-report:
+  deploy-reports:
     runs-on: ubuntu-latest
     needs: cypress-run
-    if: always()
+    if: always() 
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -156,26 +82,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Download Allure results
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: allure-results
           path: allure-results
 
       - name: Generate Allure report
         run: npx allure generate allure-results --clean -o allure-report
-
-      - name: Upload Allure report artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report
-          if-no-files-found: ignore
+        continue-on-error: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
