@@ -1,7 +1,7 @@
 pipeline {
-   agent any
+    agent any
 
-   triggers {
+    triggers {
         githubPush() 
     }
 
@@ -16,6 +16,7 @@ pipeline {
         JAVA_HOME = '/opt/java/openjdk'        
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
+
     tools {
         nodejs 'nodejs'
         allure 'allure'
@@ -28,37 +29,36 @@ pipeline {
             }
         }
 
-
         stage('Install Dependencies') {
-          steps {
-            dir(env.WORKSPACE) {
-              sh '''
-                echo "WORKSPACE=$(pwd)"
-                node -v
-                npm -v
-        
-                npm ci
-        
-                npx cypress install
-                npx cypress verify
-        
-                echo "=== check allure plugin ==="
-                npm ls @shelex/cypress-allure-plugin || true
-                ls -la node_modules/@shelex/cypress-allure-plugin || true
-              '''
+            steps {
+                dir(env.WORKSPACE) {
+                    sh '''
+                        echo "WORKSPACE=$(pwd)"
+                        node -v
+                        npm -v
+                        npm ci
+                        npx cypress install
+                        npx cypress verify
+                        echo "=== check allure plugin ==="
+                        npm ls @shelex/cypress-allure-plugin || true
+                    '''
+                }
             }
-          }
         }
-
 
         stage('Run Cypress Tests') {
             steps {
-                sh 'npx cypress run --headless'
+                // Menggunakan catchError agar jika tes gagal, build menjadi UNSTABLE 
+                // tapi pipeline tetap lanjut ke stage berikutnya.
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'npx cypress run --headless'
+                }
             }
         }
 
         stage('Archive Artifacts') {
             steps {
+                // Stage ini sekarang akan selalu jalan meskipun tes di atas gagal
                 archiveArtifacts artifacts: 'cypress/videos/**, cypress/screenshots/**', allowEmptyArchive: true
             }
         }
@@ -66,18 +66,20 @@ pipeline {
 
     post {
         always {
-            allure includeProperties:
-                     false,
-                     jdk: 'temurin21',
-                     results: [[path: 'allure-results']]
+            // Allure akan membaca hasil XML/JSON dan menampilkan grafik meskipun ada yang fail
+            allure includeProperties: false,
+                   jdk: 'temurin21',
+                   results: [[path: 'allure-results']]
             cleanWs()
         }
+        unstable {
+            echo '⚠️ Beberapa tes gagal, tapi laporan tetap dibuat.'
+        }
         failure {
-            echo '❌ Cypress tests failed!'
+            echo '❌ Pipeline gagal total (masalah sistem/setup)!'
         }
         success {
-            echo '✅ Cypress tests passed!'
+            echo '✅ Semua tes berhasil!'
         }
     }
-
 }
