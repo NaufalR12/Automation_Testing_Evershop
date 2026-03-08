@@ -7,15 +7,15 @@ on:
     branches: [main, master]
 
 permissions:
-  contents: write  
+  contents: write # Diubah ke write agar bisa mengelola report
   pages: write
   id-token: write
 
 jobs:
   # ──────────────────────────────────────────────
-  # Job 1: Install & Run Cypress (Digabung agar lebih efisien)
+  # Job 1: Install dependencies & cache
   # ──────────────────────────────────────────────
-  cypress-run:
+  install:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,19 +30,48 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+  # ──────────────────────────────────────────────
+  # Job 2: Run Cypress tests
+  # ──────────────────────────────────────────────
+  cypress-run:
+    runs-on: ubuntu-latest
+    needs: install
+    # Agar job ini tidak menghentikan pipeline jika ada tes gagal
+    continue-on-error: true 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Restore Cypress cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        continue-on-error: true 
         with:
           browser: chrome
+          # Matikan auto-install karena sudah dilakukan di job install
           install: false 
         env:
           allure: true
-
-      
-      - name: Upload test results
+        
+      - name: Upload test results (Mochawesome)
         uses: actions/upload-artifact@v4
-        if: always() 
+        if: always() # WAJIB: Tetap upload meski tes gagal
         with:
           name: cypress-results
           path: cypress/results
@@ -50,30 +79,29 @@ jobs:
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() # WAJIB: Tetap upload meski tes gagal
         with:
           name: allure-results
           path: allure-results
           if-no-files-found: ignore
 
-      - name: Upload screenshots
+      - name: Upload screenshots/videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+          name: cypress-media
+          path: |
+            cypress/screenshots
+            cypress/videos
           if-no-files-found: ignore
 
   # ──────────────────────────────────────────────
-  # Job 2: Generate & Deploy Report
+  # Job 3: Generate Mochawesome report
   # ──────────────────────────────────────────────
-  deploy-reports:
+  generate-report:
     runs-on: ubuntu-latest
     needs: cypress-run
-    if: always() 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    if: always() # Tetap jalan meski cypress-run statusnya 'failed'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,6 +114,40 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        continue-on-error: true # Antisipasi jika memang tidak ada file sama sekali
+        with:
+          name: cypress-results
+          path: cypress/results
+
+      - name: Merge & Generate Mochawesome
+        run: |
+          npm run merge:reports || echo "No reports to merge"
+          npm run generate:html || echo "No HTML to generate"
+
+      - name: Upload Mochawesome report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mochawesome-report
+          path: cypress/reports
+          if-no-files-found: ignore
+
+  # ──────────────────────────────────────────────
+  # Job 4: Generate Allure Report & Deploy
+  # ──────────────────────────────────────────────
+  generate-allure-report:
+    runs-on: ubuntu-latest
+    needs: cypress-run
+    if: always() # Tetap jalan meski cypress-run statusnya 'failed'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download Allure results
         uses: actions/download-artifact@v4
         continue-on-error: true
@@ -94,8 +156,10 @@ jobs:
           path: allure-results
 
       - name: Generate Allure report
-        run: npx allure generate allure-results --clean -o allure-report
-        continue-on-error: true
+        run: |
+          # Buat folder jika belum ada agar tidak error saat generate
+          mkdir -p allure-results 
+          npx allure generate allure-results --clean -o allure-report || echo "Allure gen failed"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

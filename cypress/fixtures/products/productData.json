@@ -46,6 +46,8 @@
   },
   "search": {
     "validKeyword": "Stainless Steel Thermos",
+    "validKeywordLowercase": "stainless steel thermos",
+    "validKeywordUppercase": "STAINLESS STEEL THERMOS",
     "expectedResults": 3
   },
   "errorMessages": {

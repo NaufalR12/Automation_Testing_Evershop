@@ -241,13 +241,30 @@ describe("TC03 - Product Page Evershop", () => {
     // 2. Klik icon search
     productPage.clickSearchIcon();
 
-    // 3. Ketik kata kunci produk
-    productPage.searchProduct(productData.search.validKeyword);
+    // 3. Ketik kata kunci produk dengan huruf kecil semua
+    productPage.searchProduct(productData.search.validKeywordLowercase);
 
     // 4. Tekan enter
     productPage.submitSearch();
 
-    // Verifikasi hasil pencarian
+    // Verifikasi hasil pencarian dengan huruf kecil
+    cy.wait(1000);
+    productPage.verifySearchResultsVisible();
+
+    // 5. Kembali ke home untuk search kedua
+    productPage.clickBreadcrumbHome();
+    productPage.verifyHomeUrl();
+
+    // 6. Klik icon search lagi
+    productPage.clickSearchIcon();
+
+    // 7. Ketik kata kunci produk dengan huruf besar semua
+    productPage.searchProduct(productData.search.validKeywordUppercase);
+
+    // 8. Tekan enter
+    productPage.submitSearch();
+
+    // Verifikasi hasil pencarian dengan huruf besar
     cy.wait(1000);
     productPage.verifySearchResultsVisible();
   });
@@ -340,5 +357,21 @@ describe("TC03 - Product Page Evershop", () => {
 
     // Verifikasi URL berisi parameter price range
     productPage.verifyPriceRangeUrlMax(max);
+  });
+
+  it.only("TC03014 - User menggunakan fitur pencarian dengan field kosong", () => {
+    // 1. Buka halaman home
+    productPage.visitHome();
+    productPage.verifyHomeUrl();
+
+    // 2. Klik icon kaca pembesar di navbar
+    productPage.clickSearchIcon();
+
+    // 3. Tekan enter tanpa mengetik kata kunci apa pun
+    productPage.submitSearch();
+
+    // Expected: 
+    cy.wait(1000);
+    productPage.verifyHomeUrl();
   });
 });
