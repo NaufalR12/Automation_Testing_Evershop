@@ -1,0 +1,124 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-03-09T07:38:50.943Z",
+    "end": "2026-03-09T07:39:12.583Z",
+    "duration": 21640,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "44d3452d-b985-4469-a223-e201e27152e4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\aboutPage.cy.js",
+      "file": "cypress\\e2e\\aboutPage.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e452c5cf-df5d-440a-9633-b98c466d31e0",
+          "title": "TC06 - About Page",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TC06001 - User klik about us di navbar",
+              "fullTitle": "TC06 - About Page TC06001 - User klik about us di navbar",
+              "timedOut": null,
+              "duration": 12460,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Buka halaman home\naboutPage.visit();\naboutPage.verifyOnHomePage();\n// 2. Klik about us di navbar\naboutPage.clickAboutUs();\n// Expected: User diarahkan ke halaman about us\ncy.wait(1000);\naboutPage.verifyOnAboutUsPage();\naboutPage.verifyAboutUsPageLoaded();\naboutPage.verifyBreadcrumbVisible();\n// 3. Klik home di breadcrumb pada halaman about us\naboutPage.clickBreadcrumbHome();\n// Expected: User diarahkan ke halaman home\ncy.wait(1000);\naboutPage.verifyOnHomePage();",
+              "err": {},
+              "uuid": "7b682c8d-3ab2-4e1e-a206-e51ee8b6a52f",
+              "parentUUID": "e452c5cf-df5d-440a-9633-b98c466d31e0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC06002 - User klik icon evershop",
+              "fullTitle": "TC06 - About Page TC06002 - User klik icon evershop",
+              "timedOut": null,
+              "duration": 1609,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Buka halaman home\naboutPage.visit();\naboutPage.verifyOnHomePage();\n// 2. Klik about us di navbar\naboutPage.clickAboutUs();\n// Expected: User diarahkan ke halaman about us\naboutPage.verifyOnAboutUsPage();\naboutPage.verifyAboutUsPageLoaded();\n// 3. Klik ikon evershop di tengah navbar\naboutPage.clickEvershopLogo();\n// Expected: User diarahkan ke halaman home\naboutPage.verifyOnHomePage();",
+              "err": {},
+              "uuid": "c988b9ec-945f-47e5-ac20-2680ded6fa02",
+              "parentUUID": "e452c5cf-df5d-440a-9633-b98c466d31e0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7b682c8d-3ab2-4e1e-a206-e51ee8b6a52f",
+            "c988b9ec-945f-47e5-ac20-2680ded6fa02"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 14069,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
