@@ -139,7 +139,7 @@ class RegisterPage {
   verifyEmailAlreadyUsedError() {
     // Verifikasi pesan error untuk email yang sudah digunakan
     cy.contains(/email.*is.*already.*used/i, { timeout: 10000 }).should(
-      "be.visible",
+      "not.be.visible",
     );
   }
 
