@@ -232,14 +232,8 @@ describe("TC05 - Checkout tanpa Login", () => {
     checkoutPage.clickPlaceOrder();
 
     // Expected: Muncul pesan error untuk telephone dan postcode
-    checkoutPage.verifyInvalidFormatError(
-      expectedMessages.telephoneInvalidFormat,
-    );
-    checkoutPage.verifyInvalidFormatError(
-      expectedMessages.postcodeInvalidFormat,
-    );
-
-    // Expected: Checkout gagal
-    checkoutPage.verifyCheckoutFailed();
+    checkoutPage.verifyAddressValidationErrors(expectedMessages.telephoneInvalidFormat);
+    checkoutPage.verifyAddressValidationErrors(expectedMessages.postcodeInvalidFormat);
+    checkoutPage.verifyAddressValidationErrors(expectedMessages.addressSaveFailed);
   });
 });

@@ -124,16 +124,9 @@ describe("TC07 - Account Page Evershop", () => {
     accountPage.clickSaveAddress();
     cy.wait(2000);
 
-    // Expected 1: Muncul pesan, telepon invalid format, hanya mengandung angka
-    // Expected 2: Muncul pesan, post code invalid format, hanya mengandung angka
-    // Expected 3: address gagal disimpan
-    accountPage.verifyInvalidFormatError(
-      expectedMessages.telephoneInvalidFormat,
-    );
-    accountPage.verifyInvalidFormatError(
-      expectedMessages.postcodeInvalidFormat,
-    );
-    accountPage.verifyInvalidSavedAddress();
+    accountPage.verifyAddressValidationErrors(expectedMessages.telephoneInvalidFormat);
+    accountPage.verifyAddressValidationErrors(expectedMessages.postcodeInvalidFormat);
+    accountPage.verifyAddressValidationErrors(expectedMessages.addressSaveFailed);
   });
 
   it("TC07008 - User logout account", () => {

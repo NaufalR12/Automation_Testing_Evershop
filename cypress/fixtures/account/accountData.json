@@ -33,6 +33,7 @@
   },
   "expectedMessages": {
     "telephoneInvalidFormat": "Telephone can only contain numbers",
-    "postcodeInvalidFormat": "Postcode can only contain numbers"
+    "postcodeInvalidFormat": "Postcode can only contain numbers",
+    "addressSaveFailed": "Failed to save the address."
   }
 }

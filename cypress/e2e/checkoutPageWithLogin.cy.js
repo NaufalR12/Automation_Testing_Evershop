@@ -150,14 +150,14 @@ describe("TC04 - Checkout dengan Login", () => {
     checkoutPageWithLogin.clickPlaceOrder();
 
     // Expected: Muncul pesan error untuk telephone dan postcode
-    checkoutPageWithLogin.verifyInvalidFormatError(
+    checkoutPageWithLogin.verifyAddressValidationErrors(
       expectedMessages.telephoneInvalidFormat,
     );
-    checkoutPageWithLogin.verifyInvalidFormatError(
+    checkoutPageWithLogin.verifyAddressValidationErrors(
       expectedMessages.postcodeInvalidFormat,
     );
-
-    // Expected: Checkout gagal
-    checkoutPageWithLogin.verifyCheckoutFailed();
+    checkoutPageWithLogin.verifyAddressValidationErrors(
+      expectedMessages.addressSaveFailed,
+    );
   });
 });

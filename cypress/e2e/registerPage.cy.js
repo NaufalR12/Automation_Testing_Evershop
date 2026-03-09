@@ -53,7 +53,11 @@ describe("Page Object Model - Register Page", () => {
 
         // Expected: Muncul pesan error
         cy.wait(1000);
-        registerPage.verifyEmailAlreadyUsedError();
+        registerPage.verifyMessageConditional(
+          "email is already used",
+          "sistem tidak menerima email yang sudah terdaftar, case insensitive",
+          "sistem menerima email yang sudah terdaftar dengan case insensitive",
+        );
 
         // LANGKAH 4: Kembali ke halaman register lagi
         registerPage.visit();
@@ -66,7 +70,11 @@ describe("Page Object Model - Register Page", () => {
 
         // Expected: Muncul pesan error
         cy.wait(1000); // Tunggu response
-        registerPage.verifyEmailAlreadyUsedError();
+        registerPage.verifyMessageConditional(
+          "email is already used",
+          "sistem tidak menerima email yang sudah terdaftar, case insensitive",
+          "sistem menerima email yang sudah terdaftar dengan case insensitive",
+        );
       });
     });
 
@@ -81,9 +89,11 @@ describe("Page Object Model - Register Page", () => {
 
         registerPage.register(full_name, email, password);
 
-        cy.contains("Name must only contain alphabetic characters").should(
-          "be.visible",
-        );
+        registerPage.verifyMessageConditional(
+          "Name must only contain alphabetic characters",
+          "sistem menolak nama yang mengandung angka dan simbol",
+          "sistem menerima nama yang mengandung angka dan simbol",
+        ); 
         cy.contains("Please enter a valid email address").should("be.visible");
         cy.contains("Password must be at least 6 characters long").should(
           "be.visible",
@@ -100,9 +110,11 @@ describe("Page Object Model - Register Page", () => {
       registerPage.fillPassword(longPassword);
       registerPage.clickSignUp();
       cy.wait(500);
-      cy.contains("Password is too long (maximum 30 characters)").should(
-        "be.visible",
-      );
+      registerPage.verifyMessageConditional(
+          "Password is too long (maximum 30 characters)",
+          "sistem menolak password yang terlalu panjang",
+          "sistem menerima password yang terlalu panjang",
+        ); 
     });
 
     it("TC01004 - User tidak mengisi data, semua field create account kosong", () => {

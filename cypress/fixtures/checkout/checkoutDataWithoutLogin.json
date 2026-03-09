@@ -94,6 +94,7 @@
     "selectPaymentMethod": "SELECT A PAYMENT METHOD",
     "telephoneInvalidFormat": "Telephone can only contain numbers",
     "postcodeInvalidFormat": "Postcode can only contain numbers",
-    "invalidEmail": "Please enter a valid email address"
+    "invalidEmail": "Please enter a valid email address",
+    "addressSaveFailed": "Failed to save the address."
   }
 }

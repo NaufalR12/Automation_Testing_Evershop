@@ -91,6 +91,7 @@
     "fieldRequired": "is required",
     "selectPaymentMethod": "SELECT A PAYMENT METHOD",
     "telephoneInvalidFormat": "Telephone can only contain numbers",
-    "postcodeInvalidFormat": "Postcode can only contain numbers"
+    "postcodeInvalidFormat": "Postcode can only contain numbers",
+    "addressSaveFailed": "Failed to save the address."
   }
 }

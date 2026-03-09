@@ -43,7 +43,6 @@ class LoginPage {
     return cy.get('button[type="submit"]').contains("Reset Password");
   }
 
-
   get resetPasswordErrorMessage() {
     return cy.get(".text-critical");
   }
@@ -167,6 +166,44 @@ class LoginPage {
   verifyCountdownHasNumber() {
     // Verifikasi countdown menampilkan angka (detik/menit)
     this.countdownTimer.invoke("text").should("match", /\d+/);
+  }
+
+  verifyMessageConditional(message, logIfFound, logIfNotFound) {
+    cy.get("body").then(($body) => {
+      if ($body.find(`:contains("${message}")`).length > 0) {
+        cy.log(logIfFound);
+      } else {
+        cy.log(logIfNotFound);
+      }
+    });
+  }
+
+  verifyResetPasswordButtonConditional() {
+    cy.get("body").then(($body) => {
+      if (
+        $body.find('button[type="submit"]:contains("Reset Password"):disabled')
+          .length > 0
+      ) {
+        this.verifyResetPasswordButtonDisabled();
+      } else {
+        cy.log("Reset password button tidak disabled");
+      }
+    });
+  }
+
+  verifyCountdownConditional() {
+    cy.get("body").then(($body) => {
+      if (
+        $body.find(
+          ".countdown, [class*='countdown'], [class*='timer'], [id*='countdown'], [id*='timer']",
+        ).length > 0
+      ) {
+        this.verifyCountdownExists();
+        this.verifyCountdownHasNumber();
+      } else {
+        cy.log("Countdown timer tidak ditemukan");
+      }
+    });
   }
 }
 

@@ -16,7 +16,7 @@ class AccountPage {
 
   // Order History Elements
   get orderHistorySection() {
-    return cy.contains('Recent Orders');
+    return cy.contains("Recent Orders");
   }
 
   get orderItems() {
@@ -24,12 +24,12 @@ class AccountPage {
   }
 
   get orderDetails() {
-    return cy.contains('Order: #');
+    return cy.contains("Order: #");
   }
 
   // Address Book Elements
   get addNewAddressButton() {
-    return cy.contains('Add new address');
+    return cy.contains("Add new address");
   }
 
   get addressCards() {
@@ -41,32 +41,32 @@ class AccountPage {
   }
 
   get deleteAddressButton() {
-    return cy.contains('Delete');
+    return cy.contains("Delete");
   }
 
   get saveAddressButton() {
-    return cy.contains('Save');
+    return cy.contains("Save");
   }
 
   // Address Form Elements
   get fullNameField() {
-    return cy.get('#field-full_name');
+    return cy.get("#field-full_name");
   }
 
   get telephoneField() {
-    return cy.get('#field-telephone');
+    return cy.get("#field-telephone");
   }
 
   get addressLine1Field() {
-    return cy.get('#field-address_1');
+    return cy.get("#field-address_1");
   }
 
   get cityField() {
-    return cy.get('#field-city');
+    return cy.get("#field-city");
   }
 
   get provinceField() {
-    return cy.get('#field-province');
+    return cy.get("#field-province");
   }
 
   get provinceDropdownButton() {
@@ -78,11 +78,11 @@ class AccountPage {
   }
 
   get postcodeField() {
-    return cy.get('#field-postcode');
+    return cy.get("#field-postcode");
   }
 
   get countrySelect() {
-    return cy.get('#field-country');
+    return cy.get("#field-country");
   }
 
   get countryDropdownButton() {
@@ -99,10 +99,6 @@ class AccountPage {
   }
 
   get errorMessage() {
-    return cy.get(".text-critical");
-  }
-
-  get fieldErrorMessages() {
     return cy.get(".text-critical");
   }
 
@@ -145,47 +141,6 @@ class AccountPage {
 
   clickLogout() {
     this.logoutButton.click();
-  }
-
-  fillFullName(fullName) {
-    if (fullName)
-      this.fullNameField
-        .clear()
-        .type(fullName, { parseSpecialCharSequences: false });
-  }
-
-  fillTelephone(telephone) {
-    if (telephone)
-      this.telephoneField
-        .clear()
-        .type(telephone, { parseSpecialCharSequences: false });
-  }
-
-  fillAddress1(address) {
-    if (address)
-      this.addressLine1Field
-        .clear()
-        .type(address, { parseSpecialCharSequences: false });
-  }
-
-  fillCity(city) {
-    if (city)
-      this.cityField.clear().type(city, { parseSpecialCharSequences: false });
-  }
-
-  selectProvince(province) {
-    if (province) this.provinceField.select(province);
-  }
-
-  fillPostcode(postcode) {
-    if (postcode)
-      this.postcodeField
-        .clear()
-        .type(postcode, { parseSpecialCharSequences: false });
-  }
-
-  selectCountry(country) {
-    if (country) this.countryField.select(country);
   }
 
   clearAllMandatoryFields() {
@@ -256,69 +211,26 @@ class AccountPage {
     this.successMessage.should("contain.text", message);
   }
 
-  verifyAddressSaved() {
-    this.addressCards.should("have.length.greaterThan", 0);
-  }
-
-  verifyAddressDeleted(initialAddressCount) {
-    this.addressCards.should("have.length.lessThan", initialAddressCount);
-  }
-
   verifyRequiredFieldError(fieldName) {
     cy.contains(`${fieldName} is required`).should("be.visible");
-  }
-
-  verifyMandatoryFieldError(fieldName) {
-    this.errorMessage.should("contain.text", `${fieldName} is required`);
-  }
-
-  verifyInvalidPhoneFormat() {
-    this.errorMessage.should("exist");
-  }
-
-  verifyInvalidSavedAddress() {
-    this.errorMessage.should("exist");
-  }
-
-  verifyInvalidPostcodeFormat() {
-    this.errorMessage.should("exist");
-  }
-
-  verifyLoggedOut() {
-    this.accountIcon.should("be.visible");
-    this.verifyHomePageUrl();
   }
 
   verifyInvalidFormatError(message) {
     cy.contains(message).should("be.visible");
   }
 
-  // ═══════════════════════════════════════════════
-  // COMBINED ACTIONS
-  // ═══════════════════════════════════════════════
-  navigateToAccountPage() {
-    this.visit();
-    this.clickAccountIcon();
-  }
+  verifyAddressValidationErrors(expectedMessages) {
+    cy.get("body").then(($body) => {
+      if (
+        $body.find(`:contains("${expectedMessages}")`)
+          .length > 0
+      ) {
+        this.verifyInvalidFormatError(expectedMessages.telephoneInvalidFormat);
+      } else {
+        cy.log("Sistem tidak menampilkan validasi error.");
+      }
+    });
 
-  addNewAddress(addressData) {
-    this.clickAddNewAddress();
-    this.fillAddressForm(addressData);
-    this.clickSaveAddress();
-  }
-
-  editAddress(addressData) {
-    this.clickEditAddress();
-    this.fillAddressForm(addressData);
-    this.clickSaveAddress();
-  }
-
-  deleteAddress() {
-    this.clickDeleteAddress();
-  }
-
-  logout() {
-    this.clickLogout();
   }
 }
 

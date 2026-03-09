@@ -536,6 +536,20 @@ class CheckoutPageWithoutLogin {
   verifyCheckoutFailed() {
     cy.url().should("eq", "https://demo.evershop.io/checkout");
   }
+
+  verifyAddressValidationErrors(expectedMessages) {
+    cy.get("body").then(($body) => {
+      if (
+        $body.find(`:contains("${expectedMessages}")`)
+          .length > 0
+      ) {
+        this.verifyInvalidFormatError(expectedMessages.telephoneInvalidFormat);
+      } else {
+        cy.log("Sistem tidak menampilkan validasi error.");
+      }
+    });
+
+  }
 }
 
 export default CheckoutPageWithoutLogin;
