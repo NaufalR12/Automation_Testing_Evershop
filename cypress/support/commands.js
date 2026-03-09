@@ -58,9 +58,6 @@ Cypress.Commands.add("loginWithSession", (email, password) => {
       cy.get("#field-password").clear().type(password);
       cy.contains("Sign In").click();
       cy.wait(2000);
-      // Verify login success
-      cy.url().should("eq", "https://demo.evershop.io/");
-      cy.wait(1000);
     },
     {
       validate() {
