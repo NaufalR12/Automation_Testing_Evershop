@@ -193,7 +193,7 @@ describe("TC05 - Checkout tanpa Login", () => {
     checkoutPage.verifyCouponInvalid();
   });
 
-  it.only("TC05005 - Checkout dengan mengisi semua field mandatory dengan teks panjang dan tidak valid (256 karakter)", () => {
+  it("TC05005 - Checkout dengan mengisi semua field mandatory dengan teks panjang dan tidak valid (256 karakter)", () => {
     const {
       email,
       invalidLongTextShippingAddress,

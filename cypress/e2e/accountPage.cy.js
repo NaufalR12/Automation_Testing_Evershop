@@ -136,7 +136,7 @@ describe("TC07 - Account Page Evershop", () => {
     accountPage.verifyInvalidSavedAddress();
   });
 
-  it.only("TC07008 - User logout account", () => {
+  it("TC07008 - User logout account", () => {
     // Step 1: Klik logout
     accountPage.clickLogout();
     cy.wait(2000);

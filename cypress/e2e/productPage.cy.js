@@ -359,7 +359,7 @@ describe("TC03 - Product Page Evershop", () => {
     productPage.verifyPriceRangeUrlMax(max);
   });
 
-  it.only("TC03014 - User menggunakan fitur pencarian dengan field kosong", () => {
+  it("TC03014 - User menggunakan fitur pencarian dengan field kosong", () => {
     // 1. Buka halaman home
     productPage.visitHome();
     productPage.verifyHomeUrl();
